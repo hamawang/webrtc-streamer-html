@@ -92,7 +92,7 @@
 				});
 			}
 			
-			rowData.push({peerid: Object.keys(item)[0] , streamid, size:frameHeight+"x"+frameWidth, action:"hangup", nbCandidates: Object.values(item)[0].candidateList.length, ... Object.values(item)[0] })
+			rowData.push({peerid: Object.keys(item)[0] , streamid, size:frameHeight+"x"+frameWidth, action:"hangup", nbCandidates: Object.values(item)[0]?.candidateList?.length, ... Object.values(item)[0] })
 		});
 		gridOptions.api.setRowData(rowData);		
 	}

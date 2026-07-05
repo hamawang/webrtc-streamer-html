@@ -15,12 +15,14 @@
     <webrtc-streamer-menu id="selector" class="header" ></webrtc-streamer-menu>  
     <div id="content">
     </div>  
+    <webrtc-streamer-options id="options" options="rtptransport=tcp&timeout=60&width=0&height=0&bitrate=0&rotation=0" style="display:none"></webrtc-streamer-options>
     <webrtc-streamer-footer id="footer"></webrtc-streamer-footer>
    </div> 
   <script>
     customElements.whenDefined('webrtc-streamer-menu').then(() => {
         let selectorElement = document.getElementById("selector");
         let streamElement = document.getElementById("content");
+        let optionsElement = document.getElementById("options");
 
         selectorElement.addEventListener('init', (event) => {
                 let mediaList = event.detail;
@@ -36,9 +38,12 @@
             let whep = document.createElement('whep-video');
             whep.setAttribute('muted', true);
             whep.setAttribute('autoplay', true);
-            whep.setAttribute('src', `${location.protocol}//${location.hostname}:${location.port}/api/whep?url=${encodeURIComponent(url.video)}&audio=${encodeURIComponent(url.audio)}&options=rtptransport%3dtcp%26timeout%3d60`);
+            whep.setAttribute('src', `${location.protocol}//${location.hostname}:${location.port}/api/whep?url=${encodeURIComponent(url.video)}&audio=${encodeURIComponent(url.audio)}&options=${encodeURIComponent(optionsElement.getAttribute('options'))}`);
             streamElement.appendChild(whep);
         });
+        selectorElement.addEventListener('settings', (event) => {
+            optionsElement.style.display = event.detail === "on" ? "block" : "none";
+        });        
     });
   </script>      
 </body>
